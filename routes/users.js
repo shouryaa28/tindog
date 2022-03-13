@@ -1,7 +1,8 @@
 const mongoose =require('mongoose');
 const plm = require('passport-local-mongoose');
 
-mongoose.connect('mongodb+srv://shouryaa:<PcMEn3nuShegIvWT>@cluster0.vq38k.mongodb.net/test'||'mongodb://localhost/tindog');
+mongoose.connect('mongodb+srv://shouryaa:PcMEn3nuShegIvWT@cluster0.vq38k.mongodb.net/test'||'mongodb://localhost/tindog',{useNewUrlParser: true,
+useUnifiedTopology: true});
 
 const userSchema = mongoose.Schema({
   name:String,
