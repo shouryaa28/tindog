@@ -1,0 +1,89 @@
+<%include ./partials/header.ejs %>
+<div class="chatcontainer">
+    <div id="back">
+        <div id="panel">
+            <div id="online">
+                <h3>Online Users</h3>
+                <hr>
+                <div id="onlinelist">
+                    <div class="user"><%=foundUser.username %></div>
+                </div>
+            </div>
+            <div id="messagebar">
+                <div id="overlay">
+                    <div id="msgpanel">
+                        <!-- <div class="msg">
+                            aur bhai ? 😊 
+
+                        </div> -->
+                    </div>
+                    <div id="form">
+                        <textarea name="msg" style="color: black;" placeholder="Type your message here."></textarea>
+                        <input type="checkbox" id="flag">
+                        <div id="btn">
+                            <i class="ri-send-plane-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.min.js" integrity="sha512-Jq1JnVXlkYQOYQpz31qIV/0l67d97J9I6sbILtfiSYX00Isr2zK7XDRmHW8d2iBTwNZfL7sHkHGT0EzLs90jdw==" crossorigin="anonymous"></script>
+    <script>
+        
+        var socket=io();
+        var val=document.querySelector('textarea')
+        var textarea=document.querySelector('textarea')
+        var flag=document.querySelector('#flag')
+
+
+        document.querySelector('#btn').addEventListener('click',function(){
+            socket.emit('msg',val.value);
+            console.log(val.value)
+            val.value='';
+        })
+        
+
+        socket.on('msgsent',function(data){
+            document.querySelector('#msgpanel').innerHTML+=`<div id='right' class="msg"> ${data}</div>`
+        })
+
+        socket.on('left',function(data){
+            document.querySelector('#msgpanel').innerHTML+= `<div id='left' class="msg"> ${data}</div>`
+        })
+
+        socket.on('typing',function(urldata){
+            document.querySelector('.typing').innerHTML+= `${urldata} is typing`,
+            setTimeout(function(){
+                document.querySelector('.typing').innerHTML = '';
+            },3000)
+        })
+        
+        textarea.addEventListener('keypress',function(e){
+            if(e.charCode=== 13 && flag.checked && textarea.value.trim() !=''){
+                socket.emit('msg',val.value)
+                val.value='';
+                e.preventDefault();
+            }
+        })
+
+        // var newurl=new URL(window.location.href);
+        // var urlparamsval=newurl.searchParams.get('username')
+// console.log(newurl,urlparamsval)
+        socket.emit('username')
+
+        socket.on('userlist',function(data){
+            var useronlinetemp=[];
+            for(var x in data){
+                useronlinetemp += `<div class='user'> ${data[x]} </div>`
+            }
+            document.querySelector('#onlinelist').innerHTML='';
+            document.querySelector('#onlinelist').innerHTML=useronlinetemp;
+        })
+
+    </script>
+</body>
+</html>
+

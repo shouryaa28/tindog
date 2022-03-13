@@ -1,0 +1,39 @@
+<%include ./partials/header.ejs %>
+<form method="post" action="/register" class="container formcontainer">
+    <h1>Fill in the details</h1><br><br>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Full Name</label>
+        <input type="name" name="name" class="form-control" id="inputEmail4" placeholder="Full Name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="username">Username</label>
+        <input type="username" name="username" class="form-control" id="username" placeholder="Username">
+      </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Password</label>
+        <input name="password" type="password" class="form-control" id="inputPassword4" placeholder="Password">
+      </div>
+    <div class="form-group col-md-6">
+      <label for="inputAddress">Address</label>
+      <input name="add" type="text" class="form-control" id="inputAddress" placeholder="Address">
+    </div>   
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputCity">City</label>
+        <input name="city" type="text" class="form-control" placeholder="City" id="inputCity">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputstate">State</label>
+        <input name="state" type="text" class="form-control" placeholder="State" id="inputstate">
+      </div>
+      
+    </div><br><br>
+    <div class="container">
+        <button type="submit" class="btn btn-dark">Create account</button>
+    </div><br>
+    <div class="container">
+      <a class="btn btn-info" href="/login">Already have an account?</a>
+    </div>
+  </form>
